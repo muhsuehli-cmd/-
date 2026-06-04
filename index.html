@@ -147,6 +147,7 @@
 <div id="page-list" class="page">
     <div class="card">
         <h2>送上祝福的夥伴們</h2>
+        <!--
         <p style="color: #666; font-size: 0.9em;">（共有 30+ 位同仁的溫暖回憶）</p>
         
         <div class="name-cloud" id="name-container">
@@ -154,10 +155,20 @@
 
         <div class="button-group">
             <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
-            <a href="blessings.csv" download="blessings.csv">
+            <a href="blessings2.csv" download="blessings2.csv">
                 <button style="background: #27ae60;">下載名冊 CSV</button>
             </a>
             <button onclick="show(2)">查看特別祝福</button>
+        </div>
+        -->
+        <p id="counter" style="color: #0277bd; font-weight: bold;"></p>
+        
+        <div class="name-cloud" id="name-container"></div>
+
+        <div class="button-group">
+            <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
+            <a href="blessings2.csv" download="同仁祝福名冊.csv"><button style="background: #27ae60;">下載名冊 CSV</button></a>
+            <button onclick="show(3)">繼續閱讀叮嚀</button>
         </div>
     </div>
 </div>
@@ -255,20 +266,46 @@
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         item.style.backgroundColor = randomColor;
     });
-    fetch('blessings.csv')
+    // fetch('blessings.csv')
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         // 將 CSV 轉為陣列
+    //         const names = data.split('\n').filter(name => name.trim() !== "");
+    //         const container = document.getElementById('name-container');
+            
+    //         names.forEach(name => {
+    //             const span = document.createElement('span');
+    //             span.className = 'name-tag';
+    //             span.innerText = name.trim();
+    //             container.appendChild(span);
+    //         });
+    //     });
+    fetch('blessings2.csv?t=' + new Date().getTime()) // 加上時間戳記強制更新
         .then(response => response.text())
         .then(data => {
-            // 將 CSV 轉為陣列
-            const names = data.split('\n').filter(name => name.trim() !== "");
+            // 1. 將資料按換行切分
+            const rows = data.split('\n');
             const container = document.getElementById('name-container');
+            const counter = document.getElementById('counter');
             
-            names.forEach(name => {
-                const span = document.createElement('span');
-                span.className = 'name-tag';
-                span.innerText = name.trim();
-                container.appendChild(span);
+            // 2. 扣掉第一行標題，並過濾掉空行
+            const dataRows = rows.slice(1).filter(row => row.trim() !== "");
+            
+            // 3. 顯示總人數
+            counter.innerText = "目前共有 " + dataRows.length + " 位同仁送上祝福";
+            
+            // 4. 迴圈處理每一列
+            dataRows.forEach(row => {
+                const cols = row.split(','); // 切分逗號
+                if (cols.length >= 3) {
+                    const name = cols[2].trim(); // 取第 3 欄 (姓名)
+                    const span = document.createElement('span');
+                    span.className = 'name-tag';
+                    span.innerText = name;
+                    container.appendChild(span);
+                }
             });
-        });
+        });    
 </script>
 </body>
 </html>
