@@ -139,7 +139,6 @@
     <h2>—— 全體同仁 ——</h2>
     <img src="icon1.png" width="100"> <!-- 小插圖 -->
     <br><br><button onclick="show('-list')">查看特別祝福</button>
-<!--    <br><br><button onclick="show(2)">查看特別祝福</button> -->
 </div>
 
 
@@ -147,20 +146,7 @@
 <div id="page-list" class="page">
     <div class="card">
         <h2>送上祝福的夥伴們</h2>
-        <!--
-        <p style="color: #666; font-size: 0.9em;">（共有 30+ 位同仁的溫暖回憶）</p>
-        
-        <div class="name-cloud" id="name-container">
-            </div>
 
-        <div class="button-group">
-            <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
-            <a href="blessings2.csv" download="blessings2.csv">
-                <button style="background: #27ae60;">下載名冊 CSV</button>
-            </a>
-            <button onclick="show(2)">查看特別祝福</button>
-        </div>
-        -->
         <p id="counter" style="color: #0277bd; font-weight: bold;"></p>
         
         <div class="name-cloud" id="name-container"></div>
@@ -168,7 +154,7 @@
         <div class="button-group">
             <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
             <a href="blessings2.csv" download="同仁祝福名冊.csv"><button style="background: #27ae60;">下載名冊 CSV</button></a>
-            <button onclick="show(3)">繼續閱讀叮嚀</button>
+            <button onclick="show(2)">查看特別祝福</button>
         </div>
     </div>
 </div>
@@ -193,7 +179,7 @@
         </div>
 
         <div class="button-group">
-            <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
+            <button onclick="show('-list')" style="background: #95a5a6;">回上一頁</button>
             <button onclick="show(3)">全體祝福</button>
         </div>
     </div>
