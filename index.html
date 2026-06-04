@@ -128,6 +128,37 @@
         color: white;
         transform: scale(1.1);
     }
+    .image-container {
+        position: relative;
+        display: inline-block;
+        width: 80%; /* 依照你原本的設定 */
+        margin: 20px 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        border-radius: 10px;
+        transition: opacity 0.6s ease-in-out; /* 這是滑順感的核心 */
+    }
+
+    /* 第二張圖疊在第一張上面 */
+    .img-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0; /* 預設不顯示 */
+    }
+
+    /* 滑鼠滑過時，讓第二張圖顯示 */
+    .image-container:hover .img-hover {
+        opacity: 1;
+    }
+
+    /* 滑鼠滑過時，隱藏第一張圖 */
+    .image-container:hover .img-base {
+        opacity: 0;
+    }
+
 	@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -137,7 +168,11 @@
 <div id="page1" class="page active cover">
     <h1>誠摯的祝福，感謝有您</h1>
     <h2>—— 全體同仁 ——</h2>
-    <img src="icon1.png" width="100"> <!-- 小插圖 -->
+<!--    <img src="photo.jpg" width="80%"> <!-- 小插圖 -->  -->
+    <div class="image-container">
+        <img src="photo1.png" class="img-base">
+        <img src="photo2.jpg" class="img-hover">
+    </div>
     <br><br><button onclick="show('-list')">查看特別祝福</button>
 </div>
 
