@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特別的紀念</title>
+    <style>
+/* 讓留言區變成活潑的卡片風格 */
+#excel-data {
+    list-style: none;
+    padding: 0;
+    max-height: 500px;  /* 限制留言區高度 */
+    overflow-y: auto;   /* 超過高度時自動出現滾動條 */
+    padding-right: 10px;
+}
+
+.message-item {
+    background-color: #fff;
+    border-left: 5px solid #4a90e2; /* 預設邊框 */
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+/* 讓每兩個留言出現不同顏色 (斑馬紋) */
+.message-item:nth-child(odd) { background-color: #fdf2e9; border-left-color: #e67e22; }
+.message-item:nth-child(even) { background-color: #e8f8f5; border-left-color: #1abc9c; }
+
+/* 滑鼠移上去有互動感 */
+.message-item:hover { transform: scale(1.02); }
+    body { 
+        font-family: 'Microsoft JhengHei', sans-serif;
+        background-color: #fdf6e3;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('background.png');
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center; 
+        margin: 0; 
+    }
+    .page { display: none; padding: 50px 20px; min-height: 80vh; }
+    .active { display: block; }
+    /* 封面區 */
+    .cover { background-image: url('your-background.jpg'); background-size: cover; color: white; text-shadow: 2px 2px 4px #000; }
+    h1 { font-size: 3em; }
+    /* 通用樣式 */
+    .card { 
+        background: rgba(255,255,255,0.9); 
+        padding: 30px; 
+        border-radius: 15px; 
+        display: inline-block; 
+        width: 90%;          /* 手機版佔寬 90% */
+        max-width: 600px;    /* 電腦版限制最大寬度 */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    }
+    .page { display: none; transition: opacity 0.5s; }
+    .active { display: block; animation: fadeIn 0.5s; }
+    @media (max-width: 600px) {
+        h1 { font-size: 1.8em; }
+        .card { padding: 20px; }
+    }
+    button { padding: 15px 30px; font-size: 1.2em; cursor: pointer; background: #d35400; color: white; border: none; border-radius: 50px; }
+        /* 調整留言區塊樣式 */
+    .message-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        text-align: left; /* 改為靠左對齊，閱讀更舒適 */
+        margin-bottom: 20px;
+    }
+
+    /* 留言者標題優化 */
+    .sender {
+        color: #2c3e50;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #f1c40f; /* 加一條金色底線，增加質感 */
+        display: inline-block;
+    }
+
+    /* 內容文字樣式 */
+    .content {
+        color: #555;
+        line-height: 1.8; /* 增加行距，閱讀感更高級 */
+        font-size: 1.05em;
+        margin-bottom: 25px;
+    }
+
+    /* 按鈕容器，讓按鈕水平排列 */
+    .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+	@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<!-- 1. 封面頁 -->
+<div id="page1" class="page active cover">
+    <h1>誠摯的祝福，感謝有您</h1>
+    <h2>—— 全體同仁 ——</h2>
+    <img src="icon1.png" width="100"> <!-- 小插圖 -->
+    <br><br><button onclick="show(2)">查看特別祝福</button>
+</div>
+
+<!-- 2. 特別祝福頁 -->
+<div id="page2" class="page">
+    <div class="card">
+        <h2>來自重要夥伴的叮嚀</h2>
+        <div class="message-card">
+            <div class="sender">資訊科 鄭素娟 科長</div>
+            <div class="content">
+                祝福明峰在嘉義市稅繼續發揮你的資訊才華與積極能量，在新的舞台上發光發熱、精進卓越，前程似錦！
+            </div>
+        </div>
+
+        <div class="message-card">
+            <div class="sender">企劃服務科 辜凱莉 科長</div>
+            <div class="content">
+                短暫共事，深感您待人溫厚、處事周全。蒙相助一程，多所增益。此番遠調，萬分不捨，誠祝前程順遂、所至皆得人心。
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
+            <button onclick="show(3)">全體祝福</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. 登入頁 -->
+<div id="page3" class="page">
+    <div class="card">
+        <h2>請輸入密碼以讀取完整回憶</h2>
+        <input type="password" id="pwd">
+        <button onclick="check()">確認開啟</button>
+	<br>
+	<br>
+        <button onclick="show(2)" style="background: #95a5a6;">返回上一頁</button>
+    </div>
+</div>
+
+<!-- 4. 全體祝福頁 (Excel 匯出內容) -->
+<div id="page4" class="page">
+    <div class="card" style="text-align: left; width: 80%; max-width: 600px;">
+        <h2>同仁留言清單</h2>
+        <ul id="excel-data">
+            <!-- 直接將你的 Excel 文字轉成 <li> 貼在這裡 -->
+            <li class='message-item'><strong>資訊科作業管制股 / 李牧學：</strong> 祝福你一切順利！鵬程萬里！</li>
+            <li class='message-item'><strong>消管科 / 李靜眉：</strong> 希望哪天我們一起賺大錢，不要一起套牢。</li>
+            <!-- <li class='message-item'><strong>企服科 / 辜凱莉：</strong> 短暫共事，深感您待人溫厚、處事周全。蒙相助一程，多所增益。此番遠調，萬分不捨，誠祝前程順遂、所至皆得人心。</li>  -->
+            <li class='message-item'><strong>消費稅及管考科 / 楊竣傑：</strong> 恭喜脫離苦海～～</li>
+            <li class='message-item'><strong>消費稅及管考科 / 陳美縑：</strong> 祝您新工作順利，事事順心</li>
+            <li class='message-item'><strong>消費稅及管考科 / 何怡瑱：</strong> 恭喜如願調職！祝順心如意、幸福滿滿！</li>
+            <li class='message-item'><strong>消費稅及管考科 / 陳玉真：</strong> 一切順心！</li>
+            <li class='message-item'><strong>企服科 / 劉婉如：</strong> 好兒！祝你無論去到哪兒~~都深得長輩緣、同事愛！到處都有貴人相助，事事都能順風順水！每天都有人請喝飲料、吃大餐，到哪都是人氣王！</li>
+            <li class='message-item'><strong>地獄18層 / 張慈娟：</strong> 恭喜脫離苦海</li>
+            <li class='message-item'><strong>資訊科系統股 / 張健民：</strong> 祝一路順風。放心去吧，有坑科長會找你的，我們有的是時間在LINE裡『交流』。</li>
+            <li class='message-item'><strong>資訊科系統股 / 黃書聖：</strong> 祝 一切順心</li>
+            <li class='message-item'><strong>資訊科 / 謝靜玫：</strong> 親愛的明峰～不論你在地球哪個角落，我都會記得那段苦戰並肩的日子，恭喜你可以飛了，記得越遠越好，優秀的你千萬要幸福快樂喔</li>
+            <li class='message-item'><strong>秘書室採購股 / 翁仲誼：</strong> 恭喜脫離苦海！也預祝新的工作 平步青雲、步步高陞！</li>
+            <li class='message-item'><strong>資訊科 / 温絜茹：</strong> --. --- -. --.   -..- ..   - .. ---   .-.. ..   -.- ..-   .... .- ..</li>
+            <li class='message-item'><strong>資訊科 / 曾斐綺：</strong> 你很優秀，真的是人才，加油喔！順風</li>
+            <li class='message-item'><strong>豐原分局 / 蔡蕙如：</strong> 謝謝明峰總是很有耐性，很溫和的教我們差勤系統。祝福您～平安健康！一切順心！</li>
+            <li class='message-item'><strong>地方稅系統股 / 林璟宜：</strong> 祝明峰 生活順心、工作順利，所有美好如期而至～</li>
+            <li class='message-item'><strong>機作股 / 李東穎：</strong> 有幸認識明峰股長，祝您在新的崗位上鴻圖大展</li>
+            <li class='message-item'><strong>一股 / 蕭世華：</strong> 讚</li>
+            <li class='message-item'><strong>資訊科 / 賴欣欣：</strong> 很棒優秀的股長，職場上有您在公司就是賺到了。感謝您也祝福您</li>
+            <li class='message-item'><strong>消管科 / 張杏如：</strong> 祝未來一切順心</li>
+            <li class='message-item'><strong>秘書室 / 林伊珊：</strong> 期待再相會喔！✌️</li>
+            <li class='message-item'><strong>秘書室 / 廖淑秋：</strong> 祝福你工作順心平安快樂呦！</li>
+            <li class='message-item'><strong>秘書室 / 何雅惠：</strong> 謝謝明峰股長幫忙金檔業務，祝福新職順心如意、步步高陞👍👍👍</li>
+            <li class='message-item'><strong>雞作古 / 翁振剛：</strong> 早生貴子，增產報國！</li>
+            <!-- <li class='message-item'><strong>資訊 / 鄭素娟：</strong> 祝福明峰在嘉義市稅繼續發揮你的資訊才華與積極能量，在新的舞台上發光發熱、精進卓越，前程似錦！</li>  -->
+            <li class='message-item'><strong>離開地獄的路上 / 李祐縈：</strong> 恭喜~之後嘉義再約ㄎㄎ</li>
+            <li class='message-item'><strong>大屯分局 / 余炘剛：</strong> 祝福股長順風順水順順利利❤️</li>
+            <li class='message-item'><strong>資訊課管制股 / 張振暐：</strong> 謝謝明峰股長的教導～祝股長鵬程萬里！</li>
+        </ul>
+	<br>
+        <button onclick="show(2)" style="background: #4a90e2;">返回特別祝福</button>
+    </div>
+</div>
+
+<script>
+    function show(n) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page' + n).classList.add('active');
+    }
+    function check() {
+        if (document.getElementById('pwd').value === "tax2026") { show(4); } 
+        else { alert("密碼錯誤"); }
+    }
+    const colors = ['#ffeaa7', '#fab1a0', '#81ecec', '#74b9ff', '#a29bfe'];
+    document.querySelectorAll('.message-item').forEach(item => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        item.style.backgroundColor = randomColor;
+    });
+</script>
+</body>
+</html>
