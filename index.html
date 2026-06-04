@@ -102,6 +102,32 @@
         gap: 15px;
         margin-top: 30px;
     }
+    .name-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .name-tag {
+        background: #e1f5fe;
+        color: #0277bd;
+        padding: 8px 15px;
+        border-radius: 50px; /* 變圓角，像氣泡 */
+        font-size: 0.9em;
+        border: 1px solid #b3e5fc;
+        transition: all 0.3s;
+    }
+
+    .name-tag:hover {
+        background: #0277bd;
+        color: white;
+        transform: scale(1.1);
+    }
 	@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -112,10 +138,32 @@
     <h1>誠摯的祝福，感謝有您</h1>
     <h2>—— 全體同仁 ——</h2>
     <img src="icon1.png" width="100"> <!-- 小插圖 -->
-    <br><br><button onclick="show(2)">查看特別祝福</button>
+    <br><br><button onclick="show('-list')">查看特別祝福</button>
+<!--    <br><br><button onclick="show(2)">查看特別祝福</button> -->
 </div>
 
-<!-- 2. 特別祝福頁 -->
+
+<!-- 2. 祝福人員 -->
+<div id="page-list" class="page">
+    <div class="card">
+        <h2>送上祝福的夥伴們</h2>
+        <p style="color: #666; font-size: 0.9em;">（共有 30+ 位同仁的溫暖回憶）</p>
+        
+        <div class="name-cloud" id="name-container">
+            </div>
+
+        <div class="button-group">
+            <button onclick="show(1)" style="background: #95a5a6;">回封面</button>
+            <a href="blessings.csv" download="blessings.csv">
+                <button style="background: #27ae60;">下載名冊 CSV</button>
+            </a>
+            <button onclick="show(2)">查看特別祝福</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 3. 特別祝福頁 -->
 <div id="page2" class="page">
     <div class="card">
         <h2>來自重要夥伴的叮嚀</h2>
@@ -140,7 +188,7 @@
     </div>
 </div>
 
-<!-- 3. 登入頁 -->
+<!-- 4. 登入頁 -->
 <div id="page3" class="page">
     <div class="card">
         <h2>請輸入密碼以讀取完整回憶</h2>
@@ -152,7 +200,7 @@
     </div>
 </div>
 
-<!-- 4. 全體祝福頁 (Excel 匯出內容) -->
+<!-- 5. 全體祝福頁 (Excel 匯出內容) -->
 <div id="page4" class="page">
     <div class="card" style="text-align: left; width: 80%; max-width: 600px;">
         <h2>同仁留言清單</h2>
@@ -207,6 +255,20 @@
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         item.style.backgroundColor = randomColor;
     });
+    fetch('blessings.csv')
+        .then(response => response.text())
+        .then(data => {
+            // 將 CSV 轉為陣列
+            const names = data.split('\n').filter(name => name.trim() !== "");
+            const container = document.getElementById('name-container');
+            
+            names.forEach(name => {
+                const span = document.createElement('span');
+                span.className = 'name-tag';
+                span.innerText = name.trim();
+                container.appendChild(span);
+            });
+        });
 </script>
 </body>
 </html>
